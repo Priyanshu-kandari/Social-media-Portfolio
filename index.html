@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Priyanshu Kandari | Social Media Architect</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* --- CSS RESET & VARIABLES --- */
+        :root {
+            --bg-color: #050505;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #00ff9d; /* Cyber Green */
+            --glass: rgba(20, 20, 20, 0.7);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            width: 100vw;
+        }
+
+        /* --- BACKGROUND GRID --- */
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        /* --- 3D CANVAS CONTAINER --- */
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* --- TYPOGRAPHY & UTILITIES --- */
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .accent { color: var(--accent); }
+        a { color: inherit; text-decoration: none; transition: 0.3s; }
+        a:hover { color: var(--accent); }
+
+        /* --- LAYOUT --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 100px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 20px;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            margin-top: 40px;
+            display: flex;
+            gap: 40px;
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            width: fit-content;
+        }
+
+        /* --- RESUME CARDS (Work & Projects) --- */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .card h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .card h4 { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px; }
+        .card ul { padding-left: 20px; line-height: 1.8; color: #ddd; }
+        
+        /* --- SKILLS SECTION --- */
+        .skill-tag {
+            display: inline-block;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            padding: 8px 16px;
+            margin: 0 10px 10px 0;
+            font-size: 0.9rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* --- CONTACT BUTTON --- */
+        .btn-primary {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: var(--accent);
+            color: #000;
+            font-weight: bold;
+            font-family: 'JetBrains Mono', monospace;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .btn-primary:hover {
+            background: #fff;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <div id="canvas-container"></div>
+
+    <header>
+        <div class="mono">PRIYANSHU.KANDARI <span class="accent">//</span> BITS PILANI</div>
+        <div class="mono" style="font-size: 0.8rem; text-align: right;">
+            STATUS: <span class="accent">AVAILABLE</span><br>
+            LOC: NOIDA_IN
+        </div>
+    </header>
+
+    <div class="container">
+        
+        <section class="hero">
+            <p class="mono accent">// SOCIAL MEDIA ARCHITECT</p>
+            <h1>DATA-DRIVEN<br>CREATIVITY.</h1>
+            <p>
+                Bridging the gap between <b>Corporate Strategy</b> and <b>Viral Content</b>. 
+                Creating engaging brand narratives for Pro Work and freelance clients while pursuing a degree at BITS Pilani.
+            </p>
+            
+            <div class="hero-stats mono">
+                <div>
+                    <span class="accent">Tools</span><br>Canva & CapCut
+                </div>
+                <div>
+                    <span class="accent">Focus</span><br>Organic Growth
+                </div>
+                <div>
+                    <span class="accent">Education</span><br>BITS Pilani
+                </div>
+            </div>
+            
+            <a href="mailto:Preyanshukandari@gmail.com" class="btn-primary">INITIATE_CONTACT -></a>
+        </section>
+
+        <section id="work">
+            <h2 class="mono">01. EXPERIENCE_LOG</h2>
+            <div class="card-grid">
+                
+                <div class="card">
+                    <span class="mono accent" style="font-size: 0.8rem">APR 2025 - JULY 2025</span>
+                    <h3>Social Media Intern</h3>
+                    <h4>PRO WORK</h4>
+                    <ul>
+                        <li>Managed company presence across LinkedIn, Instagram, and Facebook.</li>
+                        <li>Engineered high-performing ad reels and marketing creatives using CapCut.</li>
+                        <li>Analyzed engagement metrics to optimize content strategy.</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <span class="mono accent" style="font-size: 0.8rem">2024 - PRESENT</span>
+                    <h3>Freelance Designer</h3>
+                    <h4>SELF-EMPLOYED</h4>
+                    <ul>
+                        <li>Produced short-form videos and graphics for diverse clients.</li>
+                        <li>Implemented a "Weekly Content Calendar System" focusing on trend research.</li>
+                        <li>Designed visual assets using Photoshop and Canva.</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills">
+            <h2 class="mono">02. TECHNICAL_STACK</h2>
+            <div class="card" style="margin-top: 30px;">
+                <p style="margin-bottom: 20px;">// SOFTWARE & TOOLS</p>
+                <div>
+                    <span class="skill-tag">Adobe Photoshop</span>
+                    <span class="skill-tag">Canva Pro</span>
+                    <span class="skill-tag">CapCut PC</span>
+                    <span class="skill-tag">Meta Business Suite</span>
+                    <span class="skill-tag">Instagram Analytics</span>
+                </div>
+                
+                <p style="margin-bottom: 20px; margin-top: 30px;">// CORE COMPETENCIES</p>
+                <div>
+                    <span class="skill-tag">Video Editing</span>
+                    <span class="skill-tag">Copywriting</span>
+                    <span class="skill-tag">Trend Forecasting</span>
+                    <span class="skill-tag">Brand Strategy</span>
+                </div>
+            </div>
+        </section>
+
+        <section style="min-height: 50vh; text-align: center;">
+            <h2 class="mono">03. CONNECT</h2>
+            <h1 style="font-size: 3rem; margin: 20px 0;">Let's Scale Your Brand.</h1>
+            <p class="mono text-muted">+91 8505856478 | Preyanshukandari@gmail.com</p>
+            <br>
+            <a href="mailto:Preyanshukandari@gmail.com" class="btn-primary">SEND EMAIL</a>
+        </section>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <script>
+        // --- 3D SETUP ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('canvas-container').appendChild(renderer.domElement);
+
+        // --- OBJECTS ---
+        
+        // 1. The "Network Core" (Icosahedron Wireframe)
+        const geometry = new THREE.IcosahedronGeometry(2, 1);
+        const material = new THREE.MeshBasicMaterial({ 
+            color: 0x00ff9d, // Green Wireframe
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const core = new THREE.Mesh(geometry, material);
+        scene.add(core);
+
+        // 2. The "Inner Data" (Smaller Solid Shape)
+        const innerGeo = new THREE.IcosahedronGeometry(1, 0);
+        const innerMat = new THREE.MeshBasicMaterial({
+            color: 0xffffff,
+            wireframe: true,
+            transparent: true,
+            opacity: 0.05
+        });
+        const innerCore = new THREE.Mesh(innerGeo, innerMat);
+        scene.add(innerCore);
+
+        // 3. Floating Particles (Stars/Data points)
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlesCount = 700;
+        const posArray = new Float32Array(particlesCount * 3);
+
+        for(let i = 0; i < particlesCount * 3; i++) {
+            // Spread particles wide
+            posArray[i] = (Math.random() - 0.5) * 15; 
+        }
+
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.02,
+            color: 0x00ff9d,
+            transparent: true,
+            opacity: 0.8
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        // --- POSITIONING ---
+        camera.position.z = 5;
+
+        // --- ANIMATION LOOP ---
+        const animate = function () {
+            requestAnimationFrame(animate);
+
+            // Rotate objects
+            core.rotation.x += 0.002;
+            core.rotation.y += 0.002;
+
+            innerCore.rotation.x -= 0.004; // Spin opposite way
+            innerCore.rotation.y -= 0.004;
+
+            particlesMesh.rotation.y += 0.0005;
+
+            // Mouse interaction parallax (subtle)
+            camera.position.x += (mouseX - camera.position.x) * 0.05;
+            camera.position.y += (-mouseY - camera.position.y) * 0.05;
+            camera.lookAt(scene.position);
+
+            renderer.render(scene, camera);
+        };
+
+        // --- MOUSE TRACKING ---
+        let mouseX = 0;
+        let mouseY = 0;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+        });
+
+        // --- RESIZE HANDLER ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>
